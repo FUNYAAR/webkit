@@ -1,35 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="x-icon" href="logo.jpg">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css1.css">
-  <title>SyntaxDrift-Login</title>
-</head>
-<body>
-  <div class="wrapper">
-    <a href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Button
-    </a>
-    <a href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Button
-    </a>
-    <a href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Button
-    </a>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SyntaxDrift-Login</title>
+    <link rel="stylesheet" href="css1.css" />
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <!-- Navbar deleted -->
+      <button id="mode-toggle" aria-label="Toggle light/dark mode">
+        <span class="icon sun" id="sun-icon" style="display:inline-block;">
+          <!-- Sun SVG -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="5" fill="#FFD600"/>
+            <g stroke="#FFD600" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="4"/>
+              <line x1="12" y1="20" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+              <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="4" y2="12"/>
+              <line x1="20" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+              <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+            </g>
+          </svg>
+        </span>
+        <span class="icon moon" id="moon-icon" style="display:none;">
+          <!-- Moon SVG -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" fill="#222"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div class="login-bg"></div>
+<div class="login-container">
+  <form class="login-card">
+    <h2>Login</h2>
+    <div class="input-group">
+      <input type="text" required placeholder=" ">
+      <label>Username</label>
+    </div>
+    <div class="input-group">
+      <input type="password" required placeholder=" ">
+      <label>Password</label>
+    </div>
+    <button type="submit" class="login-btn">Login</button>
+  </form>
+</div>
+    <script>
+const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+const sunIcon = document.getElementById('sun-icon');
+const moonIcon = document.getElementById('moon-icon');
+
+modeToggle.addEventListener('click', (e) => {
+  // Get button center position
+  const rect = modeToggle.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+
+  // Set CSS variables for the circle position
+  document.body.style.setProperty('--circle-x', `${x}px`);
+  document.body.style.setProperty('--circle-y', `${y}px`);
+
+  // Start the transition
+  body.classList.add('transitioning');
+
+  setTimeout(() => {
+    body.classList.toggle('light-mode');
+    // Swap icons
+    if (body.classList.contains('light-mode')) {
+      sunIcon.style.display = 'none';
+      moonIcon.style.display = 'inline-block';
+    } else {
+      sunIcon.style.display = 'inline-block';
+      moonIcon.style.display = 'none';
+    }
+    // End the transition after animation
+    setTimeout(() => {
+      body.classList.remove('transitioning');
+    }, 900); // Match the CSS transition duration
+  }, 10); // Short delay to ensure the class is applied
+});
+
+// Set initial icon based on mode
+if (body.classList.contains('light-mode')) {
+  sunIcon.style.display = 'none';
+  moonIcon.style.display = 'inline-block';
+} else {
+  sunIcon.style.display = 'inline-block';
+  moonIcon.style.display = 'none';
+}
+    </script>
+  </body>
 </html>
+
