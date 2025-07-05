@@ -1,118 +1,329 @@
-*{
-  margin: 0 0;
-  padding: 0 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  box-sizing: border-box;
-  text-decoration: none;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', monospace, sans-serif;
+  background: #000;
 }
-.wrapper {
-  display:flex;
+
+/* Simple Navbar Style */
+ul.nav-list {
+  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #000;
-  text-transform: uppercase;
+  gap: 36px;
+  list-style: none;
+  margin: 40px 0 0 0;   /* Remove auto to prevent shifting */
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  position: relative;
+  z-index: 10;
+  width: 100%;           /* Ensure full width for centering */
 }
-a {
-  position:relative;
-  display: inline-block;
-  padding: 20px 20px;
-  letter-spacing: 4px;
-  color: #03e9f4;
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: .5s;
+
+ul.nav-list li {
+  position: relative;
+}
+
+ul.nav-list li a {
+  color: #fff;
+  font-family: 'Orbitron', monospace, sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+  background: transparent;
+}
+
+/* Neon background on hover/active */
+ul.nav-list li a:hover,
+ul.nav-list li a.active {
+  background: #222;
+  color: #00ffe7;
+  box-shadow: none;
+}
+
+/* Remove underline and text-shadow */
+ul.nav-list li a::after {
+  display: none !important;
+}
+
+/* Light mode styles */
+body.light-mode {
+  background: #f4f4f4;
+  color: #222;
+}
+
+body.light-mode .nav-list {
+  background-color: #fff;
+}
+
+body.light-mode .nav-list li a {
+  color: #222;
+}
+
+body.light-mode .nav-list .nav-highlight {
+  background: linear-gradient(90deg, #ffb347, #ffcc33);
+  box-shadow: 0 0 16px #ffb347, 0 0 32px #ffcc33;
+}
+
+#mode-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: #222;
+  color: #fff;
+  font-family: 'Orbitron', monospace, sans-serif;
+  font-size: 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s, transform 0.5s cubic-bezier(.4,2,.6,1);
   overflow: hidden;
-  margin-right: 50px;
-  margin-left: 50px;
-  border: 2px;
-  border-color: #0005;
-  border-radius: 5px;
 }
-a:hover {
-  background-color:#03e9f4;
-  color: #050801;
-  box-shadow: 0 0 25px #03e9f4,
-              0 0 50px #03e9f4,
-              0 0 75px #03e9f4,
-              0 0 100px #03e9f4,
-              0 0 200px #03e9f4;
-              -webkit-box-reflect: below 15px linear-gradient(transparent, #0005 );
-}
-a:first-child {
-  filter: hue-rotate(225deg);
-}
-a:last-child {
-  filter:hue-rotate(90deg)
-}
-a span {
+
+#mode-toggle .icon {
   position: absolute;
-  display: block;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  opacity: 1;
+  transition: opacity 0.3s;
 }
-a span:nth-child(1) {
-  top: 0;
-  left: 0;
+
+#mode-toggle .icon[style*="display:none"] {
+  opacity: 0;
+}
+
+#mode-toggle:hover {
+  background: #333; /* Subtle change or keep same as normal */
+  color: #fff;
+}
+
+body.light-mode #mode-toggle {
+  background: #fff;
+  color: #222;
+}
+
+body.light-mode #mode-toggle:hover {
+  background: #eee;
+  color: #222;
+}
+
+/* Expanding circle transition with high-contrast gradients */
+body::before {
+  content: '';
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  left: var(--circle-x, 100vw);
+  top: var(--circle-y, 100vh);
+  width: 0;
+  height: 0;
+  background: var(--circle-bg, #fff);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition:
+    background 0.3s,
+    width 0.8s cubic-bezier(.77,0,.18,1),
+    height 0.8s cubic-bezier(.77,0,.18,1),
+    transform 0.8s cubic-bezier(.77,0,.18,1),
+    opacity 0.3s;
+  opacity: 1;
+}
+
+body.transitioning.to-light::before {
+  width: 300vmax;
+  height: 300vmax;
+  background: #fff;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+body.transitioning.to-dark::before {
+  width: 300vmax;
+  height: 300vmax;
+  background: #111;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+body {
+  transition: background 0.5s;
+}
+body.light-mode {
+  background: #fff;
+  color: #222;
+}
+body:not(.light-mode) {
+  background: #111;
+  color: #fff;
+}
+
+/* Animated SVG background (Waves) */
+.login-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('https://www.svgbackgrounds.com/wp-content/uploads/2021/05/waves.svg') center/cover no-repeat;
+  animation: bg-move 18s linear infinite alternate;
+  filter: blur(1.5px) brightness(0.85);
+}
+
+@keyframes bg-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Center the login card */
+.login-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Glassmorphism login card */
+.login-card {
+  background: rgba(30, 30, 50, 0.7);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0,255,231,0.18), 0 16px 64px 0 rgba(255,0,204,0.12);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 2.5px solid rgba(0,255,231,0.22);
+  padding: 44px 36px 36px 36px;
+  min-width: 340px;
+  max-width: 92vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.login-card h2 {
+  color: #fff;
+  font-family: 'Orbitron', monospace, sans-serif;
+  margin-bottom: 32px;
+  letter-spacing: 2px;
+  font-size: 2.1rem;
+  text-shadow: 0 0 12px #00ffe7, 0 0 24px #ff00cc;
+  font-weight: 700;
+}
+
+.input-group {
+  position: relative;
   width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #03e9f4);
-  animation: animate1 0.7s infinite;
+  margin-bottom: 28px;
 }
-@keyframes animate1 {
-  0% {
-    left: -100%;
-  }
-  100%{
-    left: 100%;
-  }
-}
-a span:nth-child(2) {
-  top:-100%;
-  right:0;
-  width:1px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, #03e9f4);
-  animation: animate2 .7s infinite;
-  animation-delay: .25s;
-}
-@keyframes animate2 {
-  0% {
-    top: -100%;
-  }
-  100% {
-    top: 100%;
-  }
-}
-a span:nth-child(3) {
-  bottom: 0;
-  right: 0;
+
+.input-group input {
   width: 100%;
-  height: 1px;
-  background: linear-gradient(270deg ,transparent, #03e9f4);
-  animation: animate3 0.7s infinite;
-  animation-delay: .5s;
+  padding: 14px 12px 14px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #00ffe7;
+  color: #fff;
+  font-size: 1.1rem;
+  outline: none;
+  transition: border-color 0.3s;
+  font-family: 'Orbitron', monospace, sans-serif;
+  letter-spacing: 1px;
 }
-@keyframes animate3 {
-  0% {
-    right: -100%;
-  }
-  100% {
-    right: 100%;
-  }
+
+.input-group input:focus {
+  border-bottom: 2px solid #ff00cc;
 }
-a span:nth-child(4) {
-  bottom: -100%;
+
+.input-group label {
+  position: absolute;
   left: 0;
-  width:1px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #03e9f4);
-  animation: animate4 0.7s infinite;
-  animation-delay: .75s;
+  top: 14px;
+  color: #aaa;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: 0.3s;
+  font-family: 'Orbitron', monospace, sans-serif;
+  letter-spacing: 1px;
 }
-@keyframes animate4 {
-  0% {
-    bottom: -100%;
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -16px;
+  font-size: 0.9rem;
+  color: #00ffe7;
+  text-shadow: 0 0 8px #00ffe7;
+  background: rgba(30,30,50,0.7);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 13px 0;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #00ffe7 0%, #ff00cc 100%);
+  color: #222;
+  font-family: 'Orbitron', monospace, sans-serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  box-shadow: 0 0 16px #00ffe7, 0 0 32px #ff00cc;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+  margin-top: 12px;
+}
+
+.login-btn:hover {
+  background: linear-gradient(90deg, #ff00cc 0%, #00ffe7 100%);
+  color: #fff;
+  box-shadow: 0 0 32px #ff00cc, 0 0 64px #00ffe7;
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Responsive: Stack on mobile */
+@media (max-width: 600px) {
+  ul.nav-list {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 16px;
   }
-  100%{
-    bottom:100%;
+  ul.nav-list li a {
+    font-size: 1rem;
+    padding: 8px 12px 12px 12px;
   }
 }
+
+/* Responsive */
+@media (max-width: 500px) {
+  .login-card {
+    min-width: 96vw;
+    padding: 24px 8px;
+  }
+  .login-card h2 {
+    font-size: 1.3rem;
+  }
+}
+
