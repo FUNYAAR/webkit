@@ -1,100 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SyntaxDrift-Login</title>
-    <link rel="stylesheet" href="css1.css" />
-    <link href="https://fonts.googleapis.com/css?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Logo2.ico" type="image/x-icon">
+    <meta name="description" content="A collection of syntax drift examples and explanations.">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <title>Syntax Drift</title>
+</head>
+<body>
+    <div class="back-vedio">
+        <video autoplay loop muted  plays-inline class="video">
+            <source  src="1851190-uhd_3840_2160_25fpscv.mp4" type="video/mp4" >
+        </video>
+    </div>
+    <div class="ul">
+        <ul>
+            <li class="list"><a href="#" id="home">Home</a></li>
+            <li class="list"><a href="#" id="login">Login</a></li>
+            <li class="list"><a href="#" id="youtube">Youtube</a></li>
+            <li class="list"><a href="#" id="portfolio">Potfolio</a></li>
+        </ul> 
+    </div>
+    <div class="leftcontainer">
+        <img src="logo.jpg" alt="logo" class="jpjlogo">
+        <form action="">
+    <label for="name" class="lbl-primary">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" required class="inp-primary"><br>
+
+    <label for="email" class="lbl-primary">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required class="inp-primary"><br>
+
+    <label for="password" class="lbl1-primary">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" required class="inp-primary"><br>
+    <button type="submit" class="btn-primary">Login</button>
+    </form>
+    </div>
+    <div class="rightcontainer">
+        <h1>Bring You Codes to  life...</h1>
+    </div>
     <div class="container">
-      <!-- Navbar deleted -->
-      <button id="mode-toggle" aria-label="Toggle light/dark mode">
-        <span class="icon sun" id="sun-icon" style="display:inline-block;">
-          <!-- Sun SVG -->
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="5" fill="#FFD600"/>
-            <g stroke="#FFD600" stroke-width="2">
-              <line x1="12" y1="1" x2="12" y2="4"/>
-              <line x1="12" y1="20" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
-              <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="4" y2="12"/>
-              <line x1="20" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
-              <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
-            </g>
-          </svg>
-        </span>
-        <span class="icon moon" id="moon-icon" style="display:none;">
-          <!-- Moon SVG -->
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" fill="#222"/>
-          </svg>
-        </span>
-      </button>
+       <h4> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic, esse illum quia optio blanditiis repudiandae minus soluta expedita iure, eius laboriosam asperiores perspiciatis enim harum necessitatibus corrupti voluptatem. Molestiae, fuga expedita. Ipsam minima veritatis tempora est quas reprehenderit quisquam, molestias libero placeat laborum quod officiis minus ratione perferendis! Officia, inventore.</h4>
     </div>
-    <div class="login-bg"></div>
-<div class="login-container">
-  <form class="login-card">
-    <h2>Login</h2>
-    <div class="input-group">
-      <input type="text" required placeholder=" ">
-      <label>Username</label>
-    </div>
-    <div class="input-group">
-      <input type="password" required placeholder=" ">
-      <label>Password</label>
-    </div>
-    <button type="submit" class="login-btn">Login</button>
-  </form>
-</div>
-    <script>
-const modeToggle = document.getElementById('mode-toggle');
-const body = document.body;
-const sunIcon = document.getElementById('sun-icon');
-const moonIcon = document.getElementById('moon-icon');
-
-modeToggle.addEventListener('click', (e) => {
-  // Get button center position
-  const rect = modeToggle.getBoundingClientRect();
-  const x = rect.left + rect.width / 2;
-  const y = rect.top + rect.height / 2;
-
-  // Set CSS variables for the circle position
-  document.body.style.setProperty('--circle-x', `${x}px`);
-  document.body.style.setProperty('--circle-y', `${y}px`);
-
-  // Start the transition
-  body.classList.add('transitioning');
-
-  setTimeout(() => {
-    body.classList.toggle('light-mode');
-    // Swap icons
-    if (body.classList.contains('light-mode')) {
-      sunIcon.style.display = 'none';
-      moonIcon.style.display = 'inline-block';
-    } else {
-      sunIcon.style.display = 'inline-block';
-      moonIcon.style.display = 'none';
-    }
-    // End the transition after animation
-    setTimeout(() => {
-      body.classList.remove('transitioning');
-    }, 900); // Match the CSS transition duration
-  }, 10); // Short delay to ensure the class is applied
-});
-
-// Set initial icon based on mode
-if (body.classList.contains('light-mode')) {
-  sunIcon.style.display = 'none';
-  moonIcon.style.display = 'inline-block';
-} else {
-  sunIcon.style.display = 'inline-block';
-  moonIcon.style.display = 'none';
-}
-    </script>
-  </body>
+</body>
 </html>
-
