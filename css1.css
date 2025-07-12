@@ -1,329 +1,224 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Orbitron', monospace, sans-serif;
-  background: #000;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background:#000000;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden
 }
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro&family=Orbitron:wght@400..900&display=swap');
+/* background */
+.back-vedio {
+    position: absolute;
+    top: 0;
+    left: 200px;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 1;
+    aspect-ratio: 16/9;
+}
+.video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+/* nvigation */
+ul {
+    position: absolute;
+    top:10px;
+    right:20px;
+    list-style: none;
+    background: #525252;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 2;
+    overflow: hidden;
 
-/* Simple Navbar Style */
-ul.nav-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 36px;
-  list-style: none;
-  margin: 40px 0 0 0;   /* Remove auto to prevent shifting */
-  padding: 0;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
-  border: none;
-  position: relative;
-  z-index: 10;
-  width: 100%;           /* Ensure full width for centering */
-}
 
-ul.nav-list li {
-  position: relative;
 }
-
-ul.nav-list li a {
-  color: #fff;
-  font-family: 'Orbitron', monospace, sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 2px;
-  text-decoration: none;
-  padding: 8px 18px;
-  border-radius: 6px;
-  transition: background 0.3s, color 0.3s;
-  background: transparent;
+ul .list {
+    text-align: right;
+    font-size: 20px;
+    display: inline;
+    padding: 12px;
+    background: transparent;
 }
-
-/* Neon background on hover/active */
-ul.nav-list li a:hover,
-ul.nav-list li a.active {
-  background: #222;
-  color: #00ffe7;
-  box-shadow: none;
+ul .list a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    background: transparent;
 }
-
-/* Remove underline and text-shadow */
-ul.nav-list li a::after {
-  display: none !important;
+/* navbar styling */
+#home::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    height: 34px;
+    width: 95px;
+    border-radius: 5px;
+    border-color: aliceblue;
+    background: rgb(0, 0, 0);
+    background-size: 200% 100%;
+    z-index: -1;
+    border: 5px;
+    transition: background-position 0.5s ease;
 }
-
-/* Light mode styles */
-body.light-mode {
-  background: #f4f4f4;
-  color: #222;
+/* separator */
+.leftcontainer {
+    display: flex;
+    position: absolute;
+    left: 0px;
+    height:100vh;
+    width: 35%;
+    background: #ffffff00;
+    z-index: 2;
 }
-
-body.light-mode .nav-list {
-  background-color: #fff;
+/* logo2 */
+.jpjlogo {
+    height: 70px;
+    width: 70px;
+    border: transparent;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    left: 40%;
+    z-index: 2;
 }
-
-body.light-mode .nav-list li a {
-  color: #222;
-}
-
-body.light-mode .nav-list .nav-highlight {
-  background: linear-gradient(90deg, #ffb347, #ffcc33);
-  box-shadow: 0 0 16px #ffb347, 0 0 32px #ffcc33;
-}
-
-#mode-toggle {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 56px;
-  height: 56px;
-  padding: 0;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  background: #222;
-  color: #fff;
-  font-family: 'Orbitron', monospace, sans-serif;
-  font-size: 24px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s, color 0.3s, transform 0.5s cubic-bezier(.4,2,.6,1);
-  overflow: hidden;
-}
-
-#mode-toggle .icon {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  opacity: 1;
-  transition: opacity 0.3s;
-}
-
-#mode-toggle .icon[style*="display:none"] {
-  opacity: 0;
-}
-
-#mode-toggle:hover {
-  background: #333; /* Subtle change or keep same as normal */
-  color: #fff;
-}
-
-body.light-mode #mode-toggle {
-  background: #fff;
-  color: #222;
-}
-
-body.light-mode #mode-toggle:hover {
-  background: #eee;
-  color: #222;
-}
-
-/* Expanding circle transition with high-contrast gradients */
-body::before {
-  content: '';
-  position: fixed;
-  z-index: 9999;
-  pointer-events: none;
-  left: var(--circle-x, 100vw);
-  top: var(--circle-y, 100vh);
-  width: 0;
-  height: 0;
-  background: var(--circle-bg, #fff);
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition:
-    background 0.3s,
-    width 0.8s cubic-bezier(.77,0,.18,1),
-    height 0.8s cubic-bezier(.77,0,.18,1),
-    transform 0.8s cubic-bezier(.77,0,.18,1),
-    opacity 0.3s;
-  opacity: 1;
-}
-
-body.transitioning.to-light::before {
-  width: 300vmax;
-  height: 300vmax;
-  background: #fff;
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-}
-
-body.transitioning.to-dark::before {
-  width: 300vmax;
-  height: 300vmax;
-  background: #111;
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-}
-
-body {
-  transition: background 0.5s;
-}
-body.light-mode {
-  background: #fff;
-  color: #222;
-}
-body:not(.light-mode) {
-  background: #111;
-  color: #fff;
-}
-
-/* Animated SVG background (Waves) */
-.login-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  width: 100vw;
-  height: 100vh;
-  background: url('https://www.svgbackgrounds.com/wp-content/uploads/2021/05/waves.svg') center/cover no-repeat;
-  animation: bg-move 18s linear infinite alternate;
-  filter: blur(1.5px) brightness(0.85);
-}
-
-@keyframes bg-move {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-/* Center the login card */
-.login-container {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-/* Glassmorphism login card */
-.login-card {
-  background: rgba(30, 30, 50, 0.7);
-  border-radius: 24px;
-  box-shadow: 0 8px 32px 0 rgba(0,255,231,0.18), 0 16px 64px 0 rgba(255,0,204,0.12);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 2.5px solid rgba(0,255,231,0.22);
-  padding: 44px 36px 36px 36px;
-  min-width: 340px;
-  max-width: 92vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.login-card h2 {
-  color: #fff;
-  font-family: 'Orbitron', monospace, sans-serif;
-  margin-bottom: 32px;
-  letter-spacing: 2px;
-  font-size: 2.1rem;
-  text-shadow: 0 0 12px #00ffe7, 0 0 24px #ff00cc;
-  font-weight: 700;
-}
-
-.input-group {
-  position: relative;
-  width: 100%;
-  margin-bottom: 28px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 14px 12px 14px 0;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid #00ffe7;
-  color: #fff;
-  font-size: 1.1rem;
-  outline: none;
-  transition: border-color 0.3s;
-  font-family: 'Orbitron', monospace, sans-serif;
-  letter-spacing: 1px;
-}
-
-.input-group input:focus {
-  border-bottom: 2px solid #ff00cc;
-}
-
-.input-group label {
-  position: absolute;
-  left: 0;
-  top: 14px;
-  color: #aaa;
-  font-size: 1rem;
-  pointer-events: none;
-  transition: 0.3s;
-  font-family: 'Orbitron', monospace, sans-serif;
-  letter-spacing: 1px;
-}
-
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-  top: -16px;
-  font-size: 0.9rem;
-  color: #00ffe7;
-  text-shadow: 0 0 8px #00ffe7;
-  background: rgba(30,30,50,0.7);
-  padding: 0 4px;
-  border-radius: 4px;
-}
-
-.login-btn {
-  width: 100%;
-  padding: 13px 0;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #00ffe7 0%, #ff00cc 100%);
-  color: #222;
-  font-family: 'Orbitron', monospace, sans-serif;
-  font-size: 1.1rem;
-  font-weight: bold;
-  letter-spacing: 2px;
-  box-shadow: 0 0 16px #00ffe7, 0 0 32px #ff00cc;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-  margin-top: 12px;
-}
-
-.login-btn:hover {
-  background: linear-gradient(90deg, #ff00cc 0%, #00ffe7 100%);
-  color: #fff;
-  box-shadow: 0 0 32px #ff00cc, 0 0 64px #00ffe7;
-  transform: translateY(-2px) scale(1.03);
-}
-
-/* Responsive: Stack on mobile */
-@media (max-width: 600px) {
-  ul.nav-list {
+/* form */
+form {
+    position: relative;
+    display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 16px;
-    border-radius: 16px;
-  }
-  ul.nav-list li a {
-    font-size: 1rem;
-    padding: 8px 12px 12px 12px;
-  }
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background:conic-gradient(from 180deg at 50% 50%, #000000, #ffffff) ;
+    filter: blur(1);
+    border: 2px transparent ;
+    border-top-right-radius: 150px;
+    border-bottom-right-radius: 150px;
+    z-index: 1;
 }
-
-/* Responsive */
-@media (max-width: 500px) {
-  .login-card {
-    min-width: 96vw;
-    padding: 24px 8px;
-  }
-  .login-card h2 {
-    font-size: 1.3rem;
-  }
+.lbl-primary {
+    background: transparent;
+    color: #ffffff;
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: left;
+    left: -55px;
+    width: 180px;
 }
-/*ln  */
+/* fixing problem with password lable */
+.lbl1-primary {
+    background: transparent;
+    color: #ffffff;
+    position: relative;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: left;
+    left: -45px;
+    width:200px
+}
+.inp-primary {
+    width: 300px;
+    height: 40px;
+    border-radius: 50px;
+    border: transparent;
+    padding-left: 10px;
+    font-size: 15px;
+    background: #ffffff;
+    margin-bottom: 20px;
+}
+/* input hover effect */
+.inp-primary:hover {
+    border: 1px;
+    border-style: dashed;
+    filter: blur(1.5px);
+}
+/* button styling */
+.btn-primary {
+    width: 300px;
+    height: 40px;
+    border: #ffffff;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #ffffff;
+    background: #000000;
+        background-size: 600%;
+}
+.btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 72.2vh;
+    left: 13vh;
+    height: 50px;
+    width: 310px;
+    background:conic-gradient(from 45deg at 50% 50%, #000000, #ffffff) ;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    z-index: -1;
+    filter: blur(5px);
+    animation: glowing 20s infinite linear;
+    
+/* animation */
+transition: all 0.5s ease;
+}
+@keyframes glowing {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        baackground-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+    
+}
+/* right container */
+.rightcontainer {
+    position: absolute;
+    top: 90px;
+    right: -120px;
+    z-index: 4;
+    border: 2px transparent;
+    background: #ffffff00;
+    height: 100px;
+    width: 1000px;
+    color: transparent;
+    background: linear-gradient(to right,#cf02d3,#6839f5,#2f68fa,#6a39fd,#ee1ff1);
+    background-clip: text;
+}
+ /* .rightcontainer h1 {
+    font-size: 3rem;
+    font-weight: 9900;
+    text-align: center;
+    -webkit-background-clip: text;
+    background: transparent;
+    
+ } */
+ h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    text-align: center;
+    -webkit-background-clip: text;
+    background: transparent;
+ }
+ h4 {
+    z-index:  9;
+    background: conic-gradient(from 1deg at 50% 50%, );
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 600px;
+    font-size: 1.5rem; 
+ }
